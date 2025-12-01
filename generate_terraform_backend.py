@@ -32,12 +32,12 @@ def create_dynamodb_table(table_name):
         response = dynamodb_client.create_table(
             TableName=table_name,
             KeySchema=[
-                {'AttributeName': 'LockID', 'KeyType': 'HASH'},  # Partition key (era 'STRING', debe ser 'HASH')
-            ],  # Faltaba esta coma
-            AttributeDefinitions=[  # Faltaba esta sección completa
-                {'AttributeName': 'LockID', 'AttributeType': 'S'}  # 'S' = String
+                {'AttributeName': 'LockID', 'KeyType': 'HASH'},
             ],
-            BillingMode='PAY_PER_REQUEST'  # On-demand billing
+            AttributeDefinitions=[
+                {'AttributeName': 'LockID', 'AttributeType': 'S'}
+            ],
+            BillingMode='PAY_PER_REQUEST'
         )
         print(f"✓ Table '{table_name}' created successfully")
         return response
@@ -45,7 +45,6 @@ def create_dynamodb_table(table_name):
         print(f"✗ Error: {e}")
         return None
 
-# Example usage
 if __name__ == "__main__":
     # Create S3 bucket
     create_s3_bucket('my-terraform-state-bucket-nikovi')
